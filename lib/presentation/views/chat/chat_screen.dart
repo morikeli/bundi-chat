@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/models/chat.dart';
+import '../../../data/models/threads.dart';
 import 'widgets/chat_bubble.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -20,10 +21,16 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final thread = ModalRoute.of(context)!.settings.arguments as ChatThread;
     return Scaffold(
-      appBar: ChatScreenAppBar(),
+      appBar: ChatScreenAppBar(
+        userName: thread.userName,
+        userProfilePic: thread.avatar,
+      ),
       body: Column(
         children: [
-          ChatsListView(scrollController: _scrollController),
+          ChatsListView(
+            scrollController: _scrollController,
+            messages: thread.messages,
+          ),
           MessageInputField(),
         ],
       ),
@@ -34,8 +41,12 @@ class _ChatScreenState extends State<ChatScreen> {
 class ChatScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ChatScreenAppBar({
     super.key,
+    required this.userName,
+    required this.userProfilePic,
   });
 
+  final String userName;
+  final String userProfilePic;
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
@@ -50,12 +61,12 @@ class ChatScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         children: [
           CircleAvatar(
-            backgroundImage: AssetImage('assets/imgs/dps/1.jpg'),
+            backgroundImage: AssetImage(userProfilePic),
             radius: MediaQuery.of(context).size.width * .04,
           ),
           SizedBox(width: 8.0),
           Text(
-            'Test User',
+            userName,
             style: Theme.of(
               context,
             ).textTheme.titleMedium?.copyWith(fontSize: 16.0),
@@ -70,9 +81,11 @@ class ChatsListView extends StatelessWidget {
   const ChatsListView({
     super.key,
     required ScrollController scrollController,
+    required this.messages,
   }) : _scrollController = scrollController;
 
   final ScrollController _scrollController;
+  final List<ChatMessage> messages;
 
   @override
   Widget build(BuildContext context) {
