@@ -12,7 +12,7 @@ Bundi chat is a simple chat app that works on Android and iOS. Users can send an
 
 
 ### Tech Stack
-- 🎨 **Frontend**: Flutter v3.38.5, Dart v3.10.4
+- 🎨 **Frontend**: Flutter v3.41.0, Dart v3.11.0
 - ☁️ **Backend & Auth**: Supabase
 - 💾 **Storage**: PostgreSQL
 - ⚡ **State Management**: BLoC
