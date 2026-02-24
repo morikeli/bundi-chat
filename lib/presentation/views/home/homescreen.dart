@@ -6,7 +6,7 @@ import 'widgets/new_message.dart';
 import 'widgets/user_avatar.dart';
 
 class HomeScreen extends StatefulWidget {
-  static String routeName = '/home';
+  static const String routeName = '/home';
   const HomeScreen({super.key});
 
   @override
