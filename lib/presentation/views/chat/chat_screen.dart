@@ -86,7 +86,6 @@ class ChatsListView extends StatelessWidget {
         itemBuilder: (context, index) {
           // access messages in reverse order using the reversed property of the list
           final message = messages.reversed.elementAt(index);
-    
           return ChatBubble(message: message);
         },
       ),
