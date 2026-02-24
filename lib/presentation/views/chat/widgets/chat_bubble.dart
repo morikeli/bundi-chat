@@ -42,7 +42,7 @@ class ChatBubble extends StatelessWidget {
               SizedBox(width: 8.0),
 
               // show delivery status only for sent messages
-              if (message.isMe) Icon(LineIcons.doubleCheck, size: 14.0),
+              if (message.isMe) Icon(LineIcons.doubleCheck, color: kPrimaryColor, size: 14.0),
             ],
           ),
         ],
