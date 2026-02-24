@@ -6,7 +6,8 @@ import 'widgets/chat_bubble.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String routeName = '/chat-screen';
-  const ChatScreen({super.key});
+  final ChatThread? thread;
+  const ChatScreen({super.key, this.thread});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -17,6 +18,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final thread = ModalRoute.of(context)!.settings.arguments as ChatThread;
     return Scaffold(
       appBar: ChatScreenAppBar(),
       body: Column(
