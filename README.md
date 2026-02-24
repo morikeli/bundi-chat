@@ -1,9 +1,9 @@
 # Bundi Chat
 
 ## Mobile app screenshots
-| Home screen | Onboarding screen |
+| Home screen | Chat screen |
 | ------------------------- | ------------------------- |
-| | |
+| <img width="480" height="854" alt="inbox-screen" src="https://github.com/user-attachments/assets/a33c1df3-cb10-455a-9344-b9e147044c83" /> | <img width="480" height="854" alt="chat-screen" src="https://github.com/user-attachments/assets/22a31198-5020-465f-b32f-9995aec7b5ba" /> |
 
 ## Overview
 Bundi chat is a simple chat app that works on Android and iOS. Users can send and share messages to each other.
