@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         darkTheme: darkTheme,
         theme: theme,
         home: HomeScreen(),
+        routes: routes,
         
       ),
     );
