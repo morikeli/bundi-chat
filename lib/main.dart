@@ -2,7 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'core/theme/theme.dart';
-import 'presentation/views/homescreen.dart';
+import 'presentation/views/home/homescreen.dart';
 
 void main() {
   runApp(const MyApp());

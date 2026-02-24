@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 
 import '../../../core/theme/color.dart';
-import 'widgets/home_tab_bar.dart';
-import 'widgets/home_tab_bar_view.dart';
+import 'widgets/app_tab_bar.dart';
+import 'widgets/app_tab_bar_view.dart';
 
 class CustomFloatingBottomNavBar extends StatelessWidget {
   const CustomFloatingBottomNavBar({
