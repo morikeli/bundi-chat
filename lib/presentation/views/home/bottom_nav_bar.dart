@@ -22,8 +22,8 @@ class CustomFloatingBottomNavBar extends StatelessWidget {
       barColor: kPrimaryColor,
       showIcon: false,
       fit: StackFit.expand,
-      child: HomeTabBar(tabController: _tabController, tabIndex: tabIndex),
-      body: (context, scrollController) => HomeTabBarView(
+      child: AppTabBar(tabController: _tabController, tabIndex: tabIndex),
+      body: (context, scrollController) => AppTabBarView(
         tabController: _tabController,
         scrollController: scrollController,
       ),
