@@ -2,6 +2,7 @@ class ChatMessage {
   final String id;
   final String text;
   final bool isMe;
+  final bool isRead;
   final DateTime timestamp;
 
   const ChatMessage({
@@ -9,6 +10,7 @@ class ChatMessage {
     required this.text,
     required this.isMe,
     required this.timestamp,
+    required this.isRead,
   });
 
   ChatMessage copyWith({
@@ -22,6 +24,7 @@ class ChatMessage {
       text: text ?? this.text,
       isMe: isMe ?? this.isMe,
       timestamp: timestamp ?? this.timestamp,
+      isRead: isRead,
     );
   }
 
@@ -40,6 +43,7 @@ class ChatMessage {
       text: json['text'],
       isMe: json['isMe'],
       timestamp: DateTime.fromMillisecondsSinceEpoch(json['timestamp']),
+      isRead: json['isRead'],
     );
   }
 
@@ -75,23 +79,27 @@ List<ChatMessage> messages = [
     text: 'Hello, how are you?',
     isMe: false,
     timestamp: DateTime.now().subtract(Duration(minutes: 5)),
+    isRead: false,
   ),
   ChatMessage(
     id: '2',
     text: 'I am good, thanks! How about you?',
     isMe: true,
     timestamp: DateTime.now().subtract(Duration(minutes: 4)),
+    isRead: true,
   ),
   ChatMessage(
     id: '3',
     text: 'I am doing well too. What are you up to?',
     isMe: false,
     timestamp: DateTime.now().subtract(Duration(minutes: 3)),
+    isRead: false,
   ),
   ChatMessage(
     id: '4',
     text: 'Just working on a Flutter project.',
     isMe: true,
     timestamp: DateTime.now().subtract(Duration(minutes: 2)),
+    isRead: false,
   ),
 ];
