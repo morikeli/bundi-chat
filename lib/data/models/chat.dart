@@ -55,20 +55,17 @@ class ChatMessage {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is ChatMessage &&
-      other.id == id &&
-      other.text == text &&
-      other.isMe == isMe &&
-      other.timestamp == timestamp;
+        other.id == id &&
+        other.text == text &&
+        other.isMe == isMe &&
+        other.timestamp == timestamp;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
-      text.hashCode ^
-      isMe.hashCode ^
-      timestamp.hashCode;
+    return id.hashCode ^ text.hashCode ^ isMe.hashCode ^ timestamp.hashCode;
   }
 }
 
