@@ -14,13 +14,11 @@ class AppTabBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isRead = true;
-
     return TabBarView(
       controller: _tabController,
       children: [
         // 1. Chat tab
-        InboxScreen(scrollController: scrollController, isRead: isRead),
+        InboxScreen(scrollController: scrollController),
         // 2. Friends tab
         Center(child: Text('Friends')),
         // 3. Profile tab
