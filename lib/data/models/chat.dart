@@ -67,8 +67,13 @@ class ChatMessage {
   int get hashCode {
     return id.hashCode ^ text.hashCode ^ isMe.hashCode ^ timestamp.hashCode;
   }
-}
 
+  // Get latest message from a list of messages
+  ChatMessage getLatestMessage(List<ChatMessage> messages) {
+    messages.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    return messages.first;
+  }
+}
 
 List<ChatMessage> messages = [
   ChatMessage(
