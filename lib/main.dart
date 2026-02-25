@@ -14,18 +14,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveTheme(
-      light: AppTheme.lightTheme,
-      dark: AppTheme.darkTheme,
-      initial: AdaptiveThemeMode.system,
-      builder: (theme, darkTheme) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'tuChat',
-        darkTheme: darkTheme,
-        theme: theme,
-        home: HomeScreen(),
-        routes: routes,
-        
+    return RepositoryProviders(
+      child: AppBlocProviders(
+        child: AdaptiveTheme(
+          light: AppTheme.lightTheme,
+          dark: AppTheme.darkTheme,
+          initial: AdaptiveThemeMode.system,
+          builder: (theme, darkTheme) => MaterialApp(
+            darkTheme: darkTheme,
+            theme: theme,
+            debugShowCheckedModeBanner: false,
+            title: 'tuChat',
+            routes: routes,
+            builder: (context, child) =>
+                ToastificationWrapper(child: child ?? const SizedBox.shrink()),
+            home: HomeScreen(),
+          ),
+        ),
       ),
     );
   }
