@@ -5,7 +5,14 @@ import 'core/routes.dart';
 import 'core/theme/theme.dart';
 import 'presentation/views/home/homescreen.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
+  await Supabase.initialize(
+    url: dotenv.get('SUPABASE_URL'),
+    anonKey: dotenv.get('SUPABASE_ANON_KEY'),
+    storageOptions: const StorageClientOptions(retryAttempts: 10),
+  );
+  await openDb();
   runApp(const MyApp());
 }
 
