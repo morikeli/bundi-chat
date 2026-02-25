@@ -1,0 +1,115 @@
+import '../constants/errors.dart';
+
+final RegExp emailValidatorRegex = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+final RegExp usernameValidatorRegex = RegExp(r'^[A-Za-z0-9_]{3,24}$');
+
+class FormValidation {
+  static String? validateFirstName(String? value) {
+    if (value == null || value.isEmpty) {
+      return kFirstNameNullError;
+    } else if (value.length < 2) {
+      return kShortFirstNameError;
+    } else if (value.length > 15) {
+      return kLongFirstNameError;
+    }
+    return null;
+  }
+
+  static String? validateLastName(String? value) {
+    if (value == null || value.isEmpty) {
+      return kLastNameNullError;
+    } else if (value.length < 2) {
+      return kShortLastNameError;
+    } else if (value.length > 15) {
+      return kLongLastNameError;
+    }
+    return null;
+  }
+
+  static String? validateUsername(String? value) {
+    if (value == null || value.isEmpty) {
+      return kUsernameNullError;
+    } else if (!usernameValidatorRegex.hasMatch(value)) {
+      return kInvalidUsernameError;
+    } else if (value.length < 3) {
+      return kShortUsernameError;
+    } else if (value.length > 24) {
+      return kLongUsernameError;
+    }
+
+    return null;
+  }
+
+  static String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return kemailNullError;
+    } else if (!emailValidatorRegex.hasMatch(value)) {
+      return kInvalidEmailError;
+    }
+
+    return null;
+  }
+
+  static String? validatePhoneNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return kPhoneNumberNullError;
+    }
+
+    // Remove spaces and hyphens for validation
+    String cleaned = value.replaceAll(RegExp(r'\s+|-'), '');
+
+    // Allow optional "+" at start, then digits only
+    final phoneRegex = RegExp(r'^\+?[0-9]{10,15}$');
+    if (!phoneRegex.hasMatch(cleaned) || value.length < 10 || value.length > 15) {
+      return "Please enter a valid phone number";
+    }
+
+    return null;
+  }
+
+  static String? validateEmailAndPhoneNumber(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Please enter an email or phone number';
+    }
+
+    final text = value.trim();
+
+    final isPhoneValid = validatePhoneNumber(text) == null;
+    final isEmailValid = validateEmail(text) == null;
+
+    if (!isPhoneValid && !isEmailValid) {
+      return 'Enter a valid email or phone number';
+    }
+
+    return null;
+  }
+
+  static String? validatePassword(String? value, String? pwdController) {
+    if (value == null || value.isEmpty) {
+      return kPasswordNullError;
+    } else if (value.length < 8) {
+      return kShortPasswordError;
+    } else if (value != pwdController) {
+      return kPasswordMatchError;
+    }
+    return null;
+  }
+
+  static String? validateOTPCode(String? value) {
+    if ((value == null || value.isEmpty)) {
+      return kOTPCodeError;
+    } else if (value.length < 4) {
+      return kShortOTPCodeError;
+    }
+    return null;
+  }
+
+  static String? validatePasswordResetCode(String? value) {
+    if (value == null || value.isEmpty) {
+      return kOTPCodeError;
+    } else if (value.length < 4) {
+      return kShortOTPCodeError;
+    }
+    return null;
+  }
+}
