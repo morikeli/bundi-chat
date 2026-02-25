@@ -1,6 +1,12 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:toastification/toastification.dart';
 
+import 'core/powersync.dart';
+import 'core/providers/bloc_providers.dart';
+import 'core/providers/repository_providers.dart';
 import 'core/routes.dart';
 import 'core/theme/theme.dart';
 import 'presentation/views/home/homescreen.dart';
