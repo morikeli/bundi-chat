@@ -21,7 +21,11 @@ class LoginScreen extends StatelessWidget {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is IsAuthenticated) {
-            Navigator.pushNamed(context, HomeScreen.routeName);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              HomeScreen.routeName,
+              (route) => false,
+            );
           } else if (state is AuthError) {
             AppToast.showError(
               context,
