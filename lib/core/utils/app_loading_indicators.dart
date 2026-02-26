@@ -28,7 +28,7 @@ class AppLoadingIndicators {
   static Widget loadingIndicatorLarge() {
     return LoadingAnimationWidget.threeRotatingDots(
       color: kIconLightColor,
-      size: 32.0,
+      size: 64.0,
     );
   }
 }
