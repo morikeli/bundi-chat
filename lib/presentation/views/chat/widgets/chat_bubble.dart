@@ -13,11 +13,13 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Bubble(
-      alignment: message.isMe ? Alignment.centerRight : Alignment.centerLeft,
-      color: message.isMe ? Colors.blue.shade900 : Colors.grey.shade600,
+      alignment: message.isSentByMe
+          ? Alignment.centerRight
+          : Alignment.centerLeft,
+      color: message.isSentByMe ? Colors.blue.shade900 : Colors.grey.shade600,
       elevation: 4.0,
       margin: BubbleEdges.symmetric(vertical: 10.0),
-      nip: message.isMe ? BubbleNip.rightTop : BubbleNip.leftTop,
+      nip: message.isSentByMe ? BubbleNip.rightTop : BubbleNip.leftTop,
       child: Column(
         crossAxisAlignment: .end,
         children: [
@@ -35,14 +37,17 @@ class ChatBubble extends StatelessWidget {
               Text(
                 DateFormat('hh:mm a').format(message.timestamp),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: message.isMe ? kTextSecondaryColor : kTextLightColor,
+                  color: message.isSentByMe
+                      ? kTextSecondaryColor
+                      : kTextLightColor,
                   fontSize: 12.0,
                 ),
               ),
               SizedBox(width: 8.0),
 
               // show delivery status only for sent messages
-              if (message.isMe) Icon(LineIcons.doubleCheck, color: kPrimaryColor, size: 14.0),
+              if (message.isSentByMe)
+                Icon(LineIcons.doubleCheck, color: kPrimaryColor, size: 14.0),
             ],
           ),
         ],
