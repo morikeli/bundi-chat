@@ -17,3 +17,5 @@ const Color kTextFormFieldLabelColor = Color(0xFF1565C0);
 const Color kButtonDarkColor = Color(0xFF1565C0);
 const Color kUserOnlineBadgeColor = Color(0xFF04F554);
 const Color kTextFormFieldBorderColor = Color(0xFFFAFAFA);
+const Color kContainerLightColor = Color.fromARGB(255, 171, 171, 230);
+const Color kLinkColor = Color(0xFF1565C0);
