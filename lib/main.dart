@@ -33,15 +33,15 @@ class MyApp extends StatelessWidget {
           light: AppTheme.lightTheme,
           dark: AppTheme.darkTheme,
           initial: AdaptiveThemeMode.system,
-          builder: (theme, darkTheme) => MaterialApp(
-            darkTheme: darkTheme,
-            theme: theme,
-            debugShowCheckedModeBanner: false,
-            title: 'tuChat',
-            routes: routes,
-            builder: (context, child) =>
-                ToastificationWrapper(child: child ?? const SizedBox.shrink()),
-            home: HomeScreen(),
+          builder: (theme, darkTheme) => ToastificationWrapper(
+            child: MaterialApp(
+              darkTheme: darkTheme,
+              theme: theme,
+              debugShowCheckedModeBanner: false,
+              title: 'TuChat',
+              routes: routes,
+              home: LoginScreen(),
+            ),
           ),
         ),
       ),
