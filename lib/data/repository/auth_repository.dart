@@ -1,3 +1,5 @@
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import '../../core/services/auth_service.dart';
 import '../models/user.dart';
 
@@ -22,7 +24,9 @@ class AuthRepository {
     Map<String, dynamic> metadata,
   ) async {
     try {
-      return await _authService.signup(email, mobileNumber, password, metadata);
+      return await _authService.signup(email, password, metadata);
+    } on AuthApiException catch (e) {
+      throw e.message;
     } catch (e) {
       rethrow;
     }
