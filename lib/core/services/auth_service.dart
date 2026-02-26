@@ -23,14 +23,12 @@ class AuthService {
   /// Returns a [UserModel] representing the newly created user.
   Future<UserModel> signup(
     String email,
-    String mobileNumber,
     String password,
     Map<String, dynamic> metadata,
   ) async {
     final response = await _auth.client.auth.signUp(
       email: email,
       password: password,
-      phone: mobileNumber,
       data: metadata,
     );
     return UserModel.fromJson(response.user!.toJson());

@@ -18,7 +18,6 @@ class AuthRepository {
 
   Future<UserModel> createUserAccount(
     String email,
-    String mobileNumber,
     String password,
     Map<String, dynamic> metadata,
   ) async {
