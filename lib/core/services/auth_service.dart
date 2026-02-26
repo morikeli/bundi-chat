@@ -3,10 +3,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../data/models/user.dart';
 
 class AuthService {
-  final _auth = Supabase.instance;
+  final _auth = Supabase.instance.client.auth;
 
   Future<void> login(String email, String password) async {
-    final response = await _auth.client.auth.signInWithPassword(
+    final response = await _auth.signInWithPassword(
       email: email,
       password: password,
     );
@@ -26,7 +26,7 @@ class AuthService {
     String password,
     Map<String, dynamic> metadata,
   ) async {
-    final response = await _auth.client.auth.signUp(
+    final response = await _auth.signUp(
       email: email,
       password: password,
       data: metadata,
