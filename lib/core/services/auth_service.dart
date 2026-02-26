@@ -33,4 +33,6 @@ class AuthService {
     );
     return UserModel.fromJson(response.user!.toJson());
   }
+
+  Future<void> logout() async => _auth.signOut();
 }

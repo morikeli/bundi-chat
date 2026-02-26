@@ -31,4 +31,6 @@ class AuthRepository {
       rethrow;
     }
   }
+
+  Future<void> signOutUser() async => await _authService.logout();
 }
