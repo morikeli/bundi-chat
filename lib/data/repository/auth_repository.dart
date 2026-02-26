@@ -6,6 +6,16 @@ class AuthRepository {
 
   AuthRepository(this._authService);
 
+  Future<void> authenticateUser(String email, String password) async {
+    try {
+      await _authService.login(email, password);
+    } on AuthApiException catch (e) {
+      throw e.message.toString();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<UserModel> createUserAccount(
     String email,
     String mobileNumber,
