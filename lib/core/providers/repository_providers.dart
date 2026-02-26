@@ -5,9 +5,9 @@ import '../../data/repository/auth_repository.dart';
 import '../services/auth_service.dart';
 
 /// Provides repositories used across the app.
-class RepositoryProviders extends StatelessWidget {
+class AppRepositoryProviders extends StatelessWidget {
   final Widget child;
-  const RepositoryProviders({super.key, required this.child});
+  const AppRepositoryProviders({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

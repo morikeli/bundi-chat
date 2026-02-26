@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProviders(
+    return AppRepositoryProviders(
       child: AppBlocProviders(
         child: AdaptiveTheme(
           light: AppTheme.lightTheme,
