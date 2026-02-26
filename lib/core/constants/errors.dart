@@ -20,3 +20,7 @@ const String kOTPCodeVerificationError = "Verification failed!";
 const String kPhoneNumberNullError = "Please enter your phone number!";
 const String kShortPhoneNumberError = "Mobile number provided is too short!";
 const String kLongPhoneNumberError = "Mobile number provided is too long!";
+
+// Toast messages
+const String kSignupFailedError = "Account creation failed!";
+const String kSignupSuccess = "Account created successfully!";
