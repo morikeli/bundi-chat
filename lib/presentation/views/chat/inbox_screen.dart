@@ -23,20 +23,49 @@ class _InboxScreenState extends State<InboxScreen> {
   Widget build(BuildContext context) {
     return Scrollbar(
       radius: Radius.circular(10.0),
-      controller: scrollController,
-      child: ListView.builder(
-        controller: scrollController,
-        cacheExtent: 200.0,
-        padding: EdgeInsets.only(bottom: 88.0),
-        physics: BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          final thread = threads[index];
-          return InboxMessageTile(
-            isRead: thread.lastMessage.isRead,
-            thread: thread,
-          );
+      controller: widget.scrollController,
+      child: BlocConsumer<ChatBloc, ChatState>(
+        listener: (context, state) {
+          if (state is ChatError) {
+            AppToast.showError(
+              context,
+              title: 'Error!',
+              message: state.errorMessage,
+            );
+          }
         },
-        itemCount: threads.length,
+        builder: (context, state) {
+          if (state is ChatLoading) {
+            return Center(child: AppLoadingIndicators.loadingIndicatorLarge());
+          }
+
+          if (state is InboxMessagesLoaded) {
+            final threads = state.inboxMessages;
+            if (threads.isEmpty) {
+              return PlaceholderWidget(
+                icon: LineIcons.comments,
+                placeholderTitle: "You don't have any chats",
+                placeholderSubtitle: "Your chats will appear here",
+              );
+            }
+
+            return ListView.builder(
+              controller: widget.scrollController,
+              cacheExtent: 200.0,
+              padding: EdgeInsets.only(bottom: 88.0),
+              physics: BouncingScrollPhysics(),
+              itemBuilder: (context, index) {
+                final thread = threads[index];
+                return InboxMessageTile(
+                  isRead: thread.lastMessage.isRead,
+                  thread: thread,
+                );
+              },
+              itemCount: threads.length,
+            );
+          }
+          return SizedBox.shrink();
+        },
       ),
     );
   }
