@@ -5,7 +5,7 @@ import 'package:line_icons/line_icons.dart';
 import '../../../core/utils/app_loading_indicators.dart';
 import '../../../core/utils/app_toast.dart';
 import '../../bloc/chat_bloc/chat_bloc.dart';
-import '../../widgets/common/placeholder_widget.dart';
+import '../../widgets/common/empty_state_widget.dart';
 import 'widgets/inbox_msg_tile.dart';
 
 class InboxScreen extends StatefulWidget {
