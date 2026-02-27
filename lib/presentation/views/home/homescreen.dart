@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 
 import '../../widgets/custom_appbar.dart';
 import 'bottom_nav_bar.dart';
@@ -17,6 +18,8 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final int tabLength = 3;
+  final List<String> appBarTitle = ["Chats", "Find Friends", "Profile"];
+  final List<Widget>? fab = [NewMessageFAB()];
   int tabIndex = 0;
 
   @override
@@ -40,11 +43,33 @@ class _HomeScreenState extends State<HomeScreen>
     super.dispose();
   }
 
+  Widget _buildFAB() {
+    switch (tabIndex) {
+      case 0: // Chats
+        return NewMessageFAB();
+
+      case 1: // Profile
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height * .08,
+          ),
+          child: FloatingActionButton(
+            heroTag: 'profile_fab',
+            onPressed: () {},
+            child: const Icon(LineIcons.userEdit),
+          ),
+        );
+
+      default:
+        return const SizedBox.shrink();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        appBarTitle: 'Chats',
+        appBarTitle: appBarTitle[tabIndex],
         centerTitle: false,
         actions: [UserAvatar()],
       ),
@@ -53,7 +78,12 @@ class _HomeScreenState extends State<HomeScreen>
         tabIndex: tabIndex,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: NewMessageFAB(),
+      floatingActionButton: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 250),
+        transitionBuilder: (child, animation) =>
+            ScaleTransition(scale: animation, child: child),
+        child: _buildFAB(),
+      ),
     );
   }
 }
