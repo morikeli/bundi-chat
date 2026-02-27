@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../chat/inbox_screen.dart';
+import '../../find_friends_screen.dart';
 
 class AppTabBarView extends StatelessWidget {
   const AppTabBarView({
@@ -20,7 +21,7 @@ class AppTabBarView extends StatelessWidget {
         // 1. Chat tab
         InboxScreen(scrollController: scrollController),
         // 2. Friends tab
-        Center(child: Text('Friends')),
+        FindFriendsScreen(),
         // 3. Profile tab
         Center(child: Text('Profile')),
       ],
