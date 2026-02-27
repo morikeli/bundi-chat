@@ -1,4 +1,4 @@
-import '../../core/services/chat_service.dart';
+import '../services/chat_service.dart';
 import '../models/chat.dart';
 import '../models/threads.dart';
 

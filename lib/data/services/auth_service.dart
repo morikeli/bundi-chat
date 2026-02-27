@@ -1,6 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../data/models/user.dart';
+import '../models/user.dart';
 
 class AuthService {
   final _auth = Supabase.instance.client.auth;
