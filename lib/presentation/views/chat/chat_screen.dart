@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/chat.dart';
 import '../../../data/models/threads.dart';
+import '../../bloc/chat_bloc/chat_bloc.dart';
 import 'widgets/chat_bubble.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -25,14 +27,25 @@ class _ChatScreenState extends State<ChatScreen> {
         userName: thread.userName,
         userProfilePic: thread.avatar,
       ),
-      body: Column(
-        children: [
-          ChatsListView(
-            scrollController: _scrollController,
-            messages: thread.messages,
-          ),
-          MessageInputField(),
-        ],
+      body: BlocConsumer<ChatBloc, ChatState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state is ChatsLoaded) {
+            final chatMessages = state.chats;
+            return Column(
+              children: [
+                ChatsListView(
+                  scrollController: _scrollController,
+                  receiverId: thread.receiverId,
+                  messages: [chatMessages],
+                ),
+                MessageInputField(receiverId: thread.receiverId),
+              ],
+            );
+          }
+
+          return SizedBox.shrink();
+        },
       ),
     );
   }
