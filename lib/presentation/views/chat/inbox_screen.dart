@@ -47,10 +47,10 @@ class _InboxScreenState extends State<InboxScreen> {
           if (state is InboxMessagesLoaded) {
             final threads = state.inboxMessages;
             if (threads.isEmpty) {
-              return PlaceholderWidget(
+              return EmptyStateWidget(
                 icon: LineIcons.comments,
-                placeholderTitle: "You don't have any chats",
-                placeholderSubtitle: "Your chats will appear here",
+                title: "You don't have any chats",
+                subtitle: "Your chats will appear here",
               );
             }
 
