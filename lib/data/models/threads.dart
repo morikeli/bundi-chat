@@ -1,59 +1,60 @@
-import 'package:flutter/foundation.dart';
-
 import 'chat.dart';
 
 class ChatThread {
-  final String userId;
+  final String receiverId;
   final String userName;
   final String avatar;
-  final List<ChatMessage> messages;
+  final ChatMessage lastMessage;
+  final int unreadCount;
 
   const ChatThread({
-    required this.userId,
+    required this.receiverId,
     required this.userName,
     required this.avatar,
-    required this.messages,
+    required this.lastMessage,
+    required this.unreadCount,
   });
 
   ChatThread copyWith({
-    String? userId,
+    String? receiverId,
     String? userName,
     String? avatar,
-    List<ChatMessage>? messages,
+    ChatMessage? lastMessage,
+    int? unreadCount,
   }) {
     return ChatThread(
-      userId: userId ?? this.userId,
+      receiverId: receiverId ?? this.receiverId,
       userName: userName ?? this.userName,
       avatar: avatar ?? this.avatar,
-      messages: messages ?? this.messages,
+      lastMessage: lastMessage ?? this.lastMessage,
+      unreadCount: unreadCount ?? this.unreadCount,
     );
   }
 
-  ChatMessage get lastMessage => messages.last;
+  // ChatMessage get lastMessage => messages.last;
 
   Map<String, dynamic> toJson() {
     return {
-      'userId': userId,
+      'receiverId': receiverId,
       'userName': userName,
       'avatar': avatar,
-      'messages': messages.map((x) => x.toJson()).toList(),
+      // 'messages': messages.map((x) => x.toJson()).toList(),
     };
   }
 
   factory ChatThread.fromJson(Map<String, dynamic> json) {
     return ChatThread(
-      userId: json['userId'],
+      receiverId: json['receiverId'],
       userName: json['userName'],
       avatar: json['avatar'],
-      messages: List<ChatMessage>.from(
-        json['messages']?.map((x) => ChatMessage.fromJson(x)),
-      ),
+      lastMessage: ChatMessage.fromJson(json['lastMessage']),
+      unreadCount: json['unreadCount'],
     );
   }
 
   @override
   String toString() {
-    return '''ChatThread(userId: $userId, userName: $userName, avatar: $avatar, messages: $messages)''';
+    return '''ChatThread(receiverId: $receiverId, userName: $userName, avatar: $avatar, lastMessage: $lastMessage, unreadCount: $unreadCount)''';
   }
 
   @override
@@ -61,50 +62,57 @@ class ChatThread {
     if (identical(this, other)) return true;
 
     return other is ChatThread &&
-        other.userId == userId &&
+        other.receiverId == receiverId &&
         other.userName == userName &&
         other.avatar == avatar &&
-        listEquals(other.messages, messages);
+        other.lastMessage == lastMessage &&
+        other.unreadCount == unreadCount;
   }
 
   @override
   int get hashCode {
-    return userId.hashCode ^
+    return receiverId.hashCode ^
         userName.hashCode ^
         avatar.hashCode ^
-        messages.hashCode;
+        lastMessage.hashCode ^
+        unreadCount.hashCode;
   }
 }
 
-List<ChatThread> threads = [
-  ChatThread(
-    userId: '1',
-    userName: 'Test User',
-    avatar: 'assets/imgs/dps/1.jpg',
-    messages: messages,
-  ),
-  ChatThread(
-    userId: '2',
-    userName: 'Brenda Jones',
-    avatar: 'assets/imgs/dps/8.jpg',
-    messages: messages,
-  ),
-  ChatThread(
-    userId: '3',
-    userName: 'Amanda Jepson',
-    avatar: 'assets/imgs/dps/9.jpg',
-    messages: messages,
-  ),
-  ChatThread(
-    userId: '4',
-    userName: 'Kelvin Anderson',
-    avatar: 'assets/imgs/dps/5.jpg',
-    messages: messages,
-  ),
-  ChatThread(
-    userId: '5',
-    userName: 'Yule Msee',
-    avatar: 'assets/imgs/dps/18.jpg',
-    messages: messages,
-  ),
-];
+// List<ChatThread> threads = [
+//   ChatThread(
+//     receiverId: '1',
+//     userName: 'Test User',
+//     avatar: 'assets/imgs/dps/1.jpg',
+//     lastMessage: messages.last,
+//     unreadCount: 0,
+//   ),
+//   ChatThread(
+//     receiverId: '2',
+//     userName: 'Brenda Jones',
+//     avatar: 'assets/imgs/dps/8.jpg',
+//     lastMessage: messages[1],
+//     unreadCount: 2,
+//   ),
+//   ChatThread(
+//     receiverId: '3',
+//     userName: 'Amanda Jepson',
+//     avatar: 'assets/imgs/dps/9.jpg',
+//     lastMessage: messages[2],
+//     unreadCount: 0,
+//   ),
+//   ChatThread(
+//     receiverId: '4',
+//     userName: 'Kelvin Anderson',
+//     avatar: 'assets/imgs/dps/5.jpg',
+//     lastMessage: messages[3],
+//     unreadCount: 0,
+//   ),
+//   ChatThread(
+//     receiverId: '5',
+//     userName: 'Yule Msee',
+//     avatar: 'assets/imgs/dps/18.jpg',
+//     lastMessage: messages[4],
+//     unreadCount: 0,
+//   ),
+// ];
