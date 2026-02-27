@@ -3,10 +3,21 @@ import 'package:flutter/material.dart';
 import '../../../data/models/threads.dart';
 import 'widgets/inbox_msg_tile.dart';
 
-class InboxScreen extends StatelessWidget {
+class InboxScreen extends StatefulWidget {
   const InboxScreen({super.key, required this.scrollController});
 
   final ScrollController scrollController;
+
+  @override
+  State<InboxScreen> createState() => _InboxScreenState();
+}
+
+class _InboxScreenState extends State<InboxScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ChatBloc>().add(InboxMessagesRequested());
+  }
 
   @override
   Widget build(BuildContext context) {
