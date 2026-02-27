@@ -24,6 +24,10 @@ class _HomeScreenState extends State<HomeScreen>
     super.initState();
     _tabController = TabController(length: tabLength, vsync: this);
     _tabController.addListener(() {
+      // The if block prevents unnecessary rebuilds while the
+      // tab animation is still in progress.
+      if (_tabController.indexIsChanging) return;
+
       setState(() {
         tabIndex = _tabController.index;
       });
