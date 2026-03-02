@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../chat/inbox_screen.dart';
-import '../../find_friends_screen.dart';
+import '../../friends/find_friends_screen.dart';
 
 class AppTabBarView extends StatelessWidget {
   const AppTabBarView({
