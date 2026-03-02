@@ -263,7 +263,7 @@ class SignupBtn extends StatelessWidget {
                   "first_name": firstName,
                   "last_name": lastName,
                   "username": username,
-                  "mobile_number": mobileNumber
+                  "mobile_number": mobileNumber,
                 };
 
                 context.read<AuthBloc>().add(
