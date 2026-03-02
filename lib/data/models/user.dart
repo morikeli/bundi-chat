@@ -39,10 +39,25 @@ class UserModel {
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    // 1. Safely grab the metadata map
+    final Map<String, dynamic> metadata = json['user_metadata'] ?? {};
+
     return UserModel(
-      id: json['id'],
-      username: json['username'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt']),
+      id: json['id'] as String,
+
+      // 2. Pull user metadata fields with fallback to top-level if not found
+      username: json['username'] as String? ?? metadata['username'],
+      firstName: json['first_name'] as String? ?? metadata['first_name'],
+      lastName: json['last_name'] as String? ?? metadata['last_name'],
+      email: json['email'] as String? ?? metadata['email'],
+      mobileNumber:
+          json['mobile_number'] as String? ?? metadata['mobile_number'],
+
+      // 3. Parse the ISO8601 String (2026-02-26T10:01:08...)
+      // instead of expecting Milliseconds
+      createdAt: json['created_at'] != null
+          ? DateTime.parse(json['created_at'])
+          : DateTime.now(),
     );
   }
 
