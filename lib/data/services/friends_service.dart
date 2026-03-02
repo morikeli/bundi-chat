@@ -10,11 +10,11 @@ class FindFriendsService {
   required String currentUserId,
   required int page,  // page number starting from 1
   required int pageSize,  // number of users per page
-  }) async {
-    final from = (page - 1) * pageSize;
-    final to = from + pageSize - 1;
+}) async {
+  final from = (page - 1) * pageSize;
+  final to = from + pageSize - 1;
 
-    try {
+  try {
     // 1. Get IDs of users I already follow
     final followed = await _supabase
         .from('friends')
@@ -30,17 +30,17 @@ class FindFriendsService {
 
     // 3. Query users excluding them
     final users = await _supabase
-          .from('users')
-          .select('id, username, first_name, last_name, created_at')
+        .from('users')
+        .select('id, username, first_name, last_name, created_at')
         .not('id', 'in', excludeIds)
         .order('username')
         .range(from, to);
 
     return users.map(UserModel.fromJson).toList();
-    } catch (e) {
-      throw Exception('Error fetching users: $e');
-    }
+  } catch (e) {
+    throw Exception('Error fetching users: $e');
   }
+}
 
   Future<void> follow(String followedUserId) async {
     final currentUser = _supabase.auth.currentUser!.id;
