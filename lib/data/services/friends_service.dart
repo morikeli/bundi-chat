@@ -44,7 +44,7 @@ class FindFriendsService {
 
   Future<void> follow(String followedUserId) async {
     final currentUser = _supabase.auth.currentUser!.id;
-    await _supabase.from('follows').insert({
+    await _supabase.from('friends').insert({
       'follower_id': currentUser,
       'following_id': followedUserId,
     });
@@ -53,7 +53,7 @@ class FindFriendsService {
   Future<List<Friends>> getFollowedUsers(String currentUserId) async {
     try {
       final List<Map<String, dynamic>> response = await _supabase
-          .from('follows')
+          .from('friends')
           .select()
           .eq('follower_id', currentUserId);
 
