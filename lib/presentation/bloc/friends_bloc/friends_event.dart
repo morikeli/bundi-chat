@@ -4,9 +4,9 @@ part of 'friends_bloc.dart';
 sealed class FriendsEvent {}
 
 final class GetAllUsersRequested extends FriendsEvent {
-  // final List<UserModel> users;
+  final String currentUserId;
 
-  // GetAllUsersRequested(this.users);
+  GetAllUsersRequested(this.currentUserId);
 }
 
 final class FollowUserRequested extends FriendsEvent {

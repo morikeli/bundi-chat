@@ -36,7 +36,7 @@ class FriendsBloc extends Bloc<FriendsEvent, FriendsState> {
   ) async {
     emit(FriendsLoading());
     try {
-      final friends = await _friendsRepo.findFriends();
+      final friends = await _friendsRepo.findFriends(event.currentUserId);
       emit(AllUsersLoaded(friends));
     } catch (err) {
       emit(RetrieveAllUsersError(err.toString()));

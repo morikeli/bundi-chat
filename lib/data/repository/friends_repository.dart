@@ -17,7 +17,7 @@ class FriendsRepository {
     return await _friendsService.getFollowedUsers(currentUserId);
   }
 
-  Future<List<UserModel>> findFriends() async {
-    return await _friendsService.getUsers(page: 0, pageSize: 20);
+  Future<List<UserModel>> findFriends(String currentUserId) async {
+    return await _friendsService.getUsers(currentUserId: currentUserId, page: 1, pageSize: 20);
   }
 }
