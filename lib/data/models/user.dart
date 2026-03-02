@@ -1,17 +1,22 @@
 class UserModel {
   final String id;
+  final String? firstName, lastName;
   final String username;
   final DateTime createdAt;
 
-  const UserModel({
+  UserModel({
     required this.id,
     required this.username,
     required this.createdAt,
+    this.firstName,
+    this.lastName,
   });
 
   UserModel copyWith({String? id, String? username, DateTime? createdAt}) {
     return UserModel(
       id: id ?? this.id,
+      firstName: firstName,
+      lastName: lastName,
       username: username ?? this.username,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -20,6 +25,8 @@ class UserModel {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'first_name': firstName,
+      'last_name': lastName,
       'username': username,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
