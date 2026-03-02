@@ -15,22 +15,28 @@ class FindFriendsService {
     final to = from + pageSize - 1;
 
     try {
-      final List<Map<String, dynamic>> users = await _supabase
+    // 1. Get IDs of users I already follow
+    final followed = await _supabase
+        .from('friends')
+        .select('following_id')
+        .eq('follower_id', currentUserId);
+
+    final followedIds = followed
+        .map((e) => e['following_id'] as String)
+        .toList();
+
+    // 2. Build exclusion list
+    final excludeIds = {currentUserId, ...followedIds}.toList();
+
+    // 3. Query users excluding them
+    final users = await _supabase
           .from('users')
           .select('id, username, first_name, last_name, created_at')
-          .order('username', ascending: true)
-          .range(from, to); // pagination range
+        .not('id', 'in', excludeIds)
+        .order('username')
+        .range(from, to);
 
-      print('users: $users');
-      return users
-          .map(
-            (json) => UserModel(
-              id: json["id"] as String,
-              username: json["username"] as String,
-              createdAt: DateTime.parse(json["created_at"] as String),
-            ),
-          )
-          .toList();
+    return users.map(UserModel.fromJson).toList();
     } catch (e) {
       throw Exception('Error fetching users: $e');
     }
