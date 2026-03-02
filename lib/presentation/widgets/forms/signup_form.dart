@@ -67,6 +67,7 @@ class _SignupFormState extends State<SignupForm> {
             formKey: formKey,
             firstNameController: firstNameController,
             lastNameController: lastNameController,
+            usernameController: usernameController,
             emailController: emailController,
             mobileNumberController: mobileNumberController,
             passwordController: passwordController,
@@ -227,11 +228,13 @@ class SignupBtn extends StatelessWidget {
     required this.emailController,
     required this.mobileNumberController,
     required this.passwordController,
+    required this.usernameController,
   });
 
   final GlobalKey<FormState> formKey;
   final TextEditingController firstNameController;
   final TextEditingController lastNameController;
+  final TextEditingController usernameController;
   final TextEditingController emailController;
   final TextEditingController mobileNumberController;
   final TextEditingController passwordController;
@@ -253,7 +256,7 @@ class SignupBtn extends StatelessWidget {
                 final lastName = lastNameController.text.trim();
                 final email = emailController.text.trim();
                 final mobileNumber = mobileNumberController.text.trim();
-                final username = '$firstName $lastName';
+                final username = usernameController.text.trim();
                 final password = passwordController.text.trim();
 
                 final metadata = {
