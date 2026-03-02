@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/repository/auth_repository.dart';
 import '../../data/repository/chat_repository.dart';
+import '../../data/repository/friends_repository.dart';
 import '../../presentation/bloc/auth_bloc/auth_bloc.dart';
 import '../../presentation/bloc/chat_bloc/chat_bloc.dart';
+import '../../presentation/bloc/friends_bloc/friends_bloc.dart';
 
 /// Provides Blocs used across the app.
 class AppBlocProviders extends StatelessWidget {
@@ -20,6 +22,9 @@ class AppBlocProviders extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ChatBloc(context.read<ChatRepository>()),
+        ),
+        BlocProvider(
+          create: (context) => FriendsBloc(context.read<FriendsRepository>()),
         ),
       ],
       child: child,
