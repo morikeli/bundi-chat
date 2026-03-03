@@ -18,10 +18,16 @@ class FindFriendsScreenBody extends StatefulWidget {
 
 class _FindFriendsScreenBodyState extends State<FindFriendsScreenBody> {
   final String currentUserId = Supabase.instance.client.auth.currentUser!.id;
+  List<UserModel> _cachedFriends = [];
+  String? _loadingFriendId;
 
   @override
   void initState() {
     super.initState();
+    _refreshUsers();
+  }
+
+  void _refreshUsers() {
     context.read<FriendsBloc>().add(GetAllUsersRequested(currentUserId));
   }
 
@@ -29,7 +35,6 @@ class _FindFriendsScreenBodyState extends State<FindFriendsScreenBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<FriendsBloc, FriendsState>(
       listener: (context, state) {
-        print('Current state: $state');
         if (state is RetrieveAllUsersError) {
           AppToast.showError(
             context,
@@ -37,15 +42,21 @@ class _FindFriendsScreenBodyState extends State<FindFriendsScreenBody> {
             message: state.errorMessage.toString(),
           );
         } else if (state is FollowFriendsError) {
+          _loadingFriendId = null;
           AppToast.showError(
             context,
             title: 'Cannot follow user!',
             message: state.errorMessage.toString(),
           );
         } else if (state is UserFollowed) {
+          _loadingFriendId = null;
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('User followed successfully!')),
+            const SnackBar(content: Text('User followed successfully!')),
           );
+          // optionally re-fetch to update the list/company
+          _refreshUsers();
+        } else if (state is AllUsersLoaded) {
+          _cachedFriends = state.friends;
         }
       },
       builder: (context, state) {
@@ -56,34 +67,47 @@ class _FindFriendsScreenBodyState extends State<FindFriendsScreenBody> {
             return EmptyStateWidget(
               icon: LineIcons.userSlash,
               title: "No user found!",
+              subtitle: "Users you can follow will appear here",
             );
           }
-
-          return FindFriendsListView(friends: friends);
         }
 
-        return SizedBox.shrink();
+        return FindFriendsListView(
+          friends: _cachedFriends,
+          loadingFriendId: _loadingFriendId,
+          onFollow: (id) {
+            setState(() => _loadingFriendId = id);
+            context.read<FriendsBloc>().add(FollowUserRequested(id));
+          },
+        );
       },
     );
   }
 }
 
 class FindFriendsListView extends StatelessWidget {
-  const FindFriendsListView({super.key, required this.friends});
+  const FindFriendsListView({
+    super.key,
+    required this.friends,
+    this.loadingFriendId,
+    this.onFollow,
+  });
 
   final List<UserModel> friends;
+  final String? loadingFriendId;
+  final void Function(String friendId)? onFollow;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: AlwaysScrollableScrollPhysics(),
+      physics: const AlwaysScrollableScrollPhysics(),
       itemCount: friends.length,
       itemBuilder: (context, index) {
         final friend = friends[index];
         final isLoading = loadingFriendId == friend.id;
 
         return ListTile(
-          leading: CircleAvatar(
+          leading: const CircleAvatar(
             backgroundImage: AssetImage('assets/imgs/dps/1.jpg'),
             radius: 20.0,
           ),
