@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:tuchat/core/theme/color.dart';
 
 import '../../widgets/custom_appbar.dart';
 import 'bottom_nav_bar.dart';
@@ -56,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen>
           child: FloatingActionButton(
             heroTag: 'profile_fab',
             onPressed: () {},
-            child: const Icon(LineIcons.userEdit),
+            child: const Icon(LineIcons.userEdit, color: kIconLightColor),
           ),
         );
 
