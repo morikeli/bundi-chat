@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen>
       case 0: // Chats
         return NewMessageFAB();
 
-      case 1: // Profile
+      case 2: // Profile
         return Padding(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).size.height * .08,
