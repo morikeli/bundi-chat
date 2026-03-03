@@ -49,10 +49,6 @@ class _FindFriendsScreenBodyState extends State<FindFriendsScreenBody> {
         }
       },
       builder: (context, state) {
-        // if (state is FriendsLoading) {
-        //   return Center(child: AppLoadingIndicators.loadingIndicatorLarge());
-        // }
-
         if (state is AllUsersLoaded) {
           final friends = state.friends;
 
@@ -84,6 +80,7 @@ class FindFriendsListView extends StatelessWidget {
       itemCount: friends.length,
       itemBuilder: (context, index) {
         final friend = friends[index];
+        final isLoading = loadingFriendId == friend.id;
 
         return ListTile(
           leading: CircleAvatar(
@@ -95,23 +92,15 @@ class FindFriendsListView extends StatelessWidget {
             '@${friend.username}',
             style: Theme.of(context).textTheme.bodySmall,
           ),
-          trailing: BlocBuilder<FriendsBloc, FriendsState>(
-            builder: (context, state) {
-              final isLoading = state is FriendsLoading;
-              return SizedBox(
-                height: 28.0,
-                child: ElevatedButton(
-                  onPressed: () {
-                    context.read<FriendsBloc>().add(
-                      FollowUserRequested(friend.id),
-                    );
-                  },
-                  child: isLoading
-                      ? AppLoadingIndicators.loadingIndicatorSmall()
-                      : Text('Follow'),
-                ),
-              );
-            },
+          trailing: SizedBox(
+            height: 28.0,
+            width: MediaQuery.of(context).size.width * 0.25,
+            child: ElevatedButton(
+              onPressed: isLoading ? null : () => onFollow?.call(friend.id),
+              child: isLoading
+                  ? Center(child: AppLoadingIndicators.loadingIndicatorExtraSmall())
+                  : const Text('Follow'),
+            ),
           ),
         );
       },
