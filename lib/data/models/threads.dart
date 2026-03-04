@@ -28,8 +28,6 @@ class ChatThread {
     );
   }
 
-  // ChatMessage get lastMessage => messages.last;
-
   Map<String, dynamic> toJson() {
     return {
       'receiverId': receiverId,
