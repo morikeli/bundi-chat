@@ -1,6 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../models/friends.dart';
 import '../models/user.dart';
 
 class FindFriendsService {
