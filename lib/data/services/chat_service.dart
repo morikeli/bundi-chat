@@ -6,6 +6,13 @@ import '../models/threads.dart';
 class ChatService {
   final supabase = Supabase.instance.client;
 
+  // Generate a deterministic chat ID based on the two user IDs
+  String _generateChatId(String senderID, String receiverID) {
+    final ids = [senderID, receiverID]..sort();
+    final raw = '${ids[0]}_${ids[1]}';
+    return md5.convert(utf8.encode(raw)).toString();
+  }
+
   Future<void> sendMessage({
     required String receiverId,
     required String content,
