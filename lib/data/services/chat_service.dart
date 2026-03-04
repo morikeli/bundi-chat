@@ -143,13 +143,16 @@ class ChatService {
         .from('messages')
         .stream(primaryKey: ['id'])
         .order('created_at')
-        .map((rows) => rows
-            .where((m) =>
-                (m['sender_id'] == myId &&
-                    m['receiver_id'] == otherUserId) ||
-                (m['sender_id'] == otherUserId &&
-                    m['receiver_id'] == myId))
-            .map((e) => ChatMessage.fromJson(e))
-            .toList());
+        .map(
+          (rows) => rows
+              .where(
+                (m) =>
+                    (m['sender_id'] == myId &&
+                        m['receiver_id'] == otherUserId) ||
+                    (m['sender_id'] == otherUserId && m['receiver_id'] == myId),
+              )
+              .map((e) => ChatMessage.fromJson(e))
+              .toList(),
+        );
   }
 }
