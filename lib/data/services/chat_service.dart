@@ -17,13 +17,52 @@ class ChatService {
     required String receiverId,
     required String content,
   }) async {
+    final supabase = Supabase.instance.client;
     final senderId = supabase.auth.currentUser!.id;
 
-    await supabase.from('chats').insert({
-      'sender_id': senderId,
-      'receiver_id': receiverId,
-      'content': content,
-    });
+    try {
+      // Generate deterministic chat id for the user pair
+      final chatId = _generateChatId(senderId, receiverId);
+
+      // Ensure chat exists (create if missing)
+      final existingChat = await supabase
+          .from('chats')
+          .select('id')
+          .eq('id', chatId)
+          .maybeSingle();
+
+      if (existingChat == null) {
+        await supabase.from('chats').insert({
+          'id': chatId,
+          'profile_id': senderId,
+          'content': content,
+          'is_read': false,
+          'created_at': DateTime.now().toIso8601String(),
+        });
+      } else {
+        // Update the chat with the latest message content
+        await supabase
+            .from('chats')
+            .update({
+              'content': content,
+              'is_read': false,
+              'created_at': DateTime.now().toIso8601String(),
+            })
+            .eq('id', chatId);
+      }
+
+      // Insert message with chat_id
+      await supabase.from('messages').insert({
+        'chat_id': chatId,
+        'sender_id': senderId,
+        'receiver_id': receiverId,
+        'content': content,
+        'is_read': false,
+        'created_at': DateTime.now().toIso8601String(),
+      });
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Stream<List<ChatThread>> streamThreads() {
