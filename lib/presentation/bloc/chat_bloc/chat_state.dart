@@ -16,7 +16,7 @@ final class InboxMessagesLoaded extends ChatState {
 }
 
 final class ChatsLoaded extends ChatState {
-  final ChatMessage chats;
+  final List<ChatMessage> chats;
 
   ChatsLoaded(this.chats);
 }
