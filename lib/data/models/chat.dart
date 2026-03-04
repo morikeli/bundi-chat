@@ -40,9 +40,11 @@ class ChatMessage {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'text': text,
-      'senderId': senderId,
-      'timestamp': timestamp.millisecondsSinceEpoch,
+      'content': text,
+      'sender_id': senderId,
+      'receiver_id': receiverId,
+      'created_at': timestamp.millisecondsSinceEpoch,
+      'is_read': isRead,
     };
   }
 
