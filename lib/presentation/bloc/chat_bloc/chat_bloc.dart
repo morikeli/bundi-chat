@@ -12,6 +12,7 @@ part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatRepository _chatRepository;
+  List<ChatMessage> _cachedMessages = [];
 
   ChatBloc(this._chatRepository) : super(ChatInitial()) {
     on<InboxMessagesRequested>(_loadInboxMessages);
@@ -48,8 +49,21 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   Future<void> _loadChats(ChatsRequested event, Emitter<ChatState> emit) async {
     try {
-      emit(ChatLoading());
-      _chatRepository.streamThreads();
+      // Emit loading state while preserving previous messages
+      if (_cachedMessages.isNotEmpty) {
+        emit(ChatsLoading(_cachedMessages));
+      } else {
+        emit(ChatLoading());
+      }
+
+      await emit.forEach<List<ChatMessage>>(
+        _chatRepository.streamMessages(event.receiverId),
+        onData: (messages) {
+          _cachedMessages = messages;
+          return ChatsLoaded(messages);
+        },
+        onError: (err, _) => ChatError(err.toString()),
+      );
     } catch (e) {
       emit(ChatError(e.toString()));
     }
