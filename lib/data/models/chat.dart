@@ -17,7 +17,8 @@ class ChatMessage {
     required this.receiverId,
   });
 
-  bool get isSentByMe => senderId == Supabase.instance.client.auth.currentUser?.id;
+  bool get isSentByMe =>
+      senderId == Supabase.instance.client.auth.currentUser?.id;
 
   ChatMessage copyWith({
     String? id,

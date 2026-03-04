@@ -14,7 +14,16 @@ class UserModel {
     this.mobileNumber,
   });
 
-  UserModel copyWith({String? id, String? username, DateTime? createdAt}) {
+  UserModel copyWith({
+    String? id,
+    String? username,
+    DateTime? createdAt,
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? mobileNumber,
+    String? avatarUrl,
+  }) {
     return UserModel(
       id: id ?? this.id,
       firstName: firstName,

@@ -53,7 +53,9 @@ class InboxMessageTile extends StatelessWidget {
           ],
         ),
       ),
-      trailing: Text(DateFormat('h:mm a').format(thread.lastMessage.timestamp)),
+      trailing: Text(
+        DateFormat('h:mm a').format(thread.recentMessage.timestamp),
+      ),
     );
   }
 }
