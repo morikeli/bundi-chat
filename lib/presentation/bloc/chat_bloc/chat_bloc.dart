@@ -73,10 +73,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     SendMessageRequested event,
     Emitter<ChatState> emit,
   ) async {
-    emit(ChatLoading());
     try {
       await _chatRepository.sendMessage(event.receiverId, event.message);
-      emit(ChatSent());
+
+      // Don't emit any state here - let the stream from _loadChats handle it
+      // The message stream should automatically emit ChatsLoaded with the new message
     } catch (e) {
       emit(ChatError(e.toString()));
     }
