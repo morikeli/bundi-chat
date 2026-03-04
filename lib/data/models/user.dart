@@ -27,10 +27,11 @@ class UserModel {
   }) {
     return UserModel(
       id: id ?? this.id,
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      mobileNumber: mobileNumber,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      email: email ?? this.email,
+      mobileNumber: mobileNumber ?? this.mobileNumber,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
       username: username ?? this.username,
       createdAt: createdAt ?? this.createdAt,
     );
