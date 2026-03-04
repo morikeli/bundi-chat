@@ -61,6 +61,7 @@ class _InboxScreenState extends State<InboxScreen> {
 
           if (state is InboxMessagesLoaded) {
             final threads = state.inboxMessages;
+
             if (threads.isEmpty) {
               return EmptyStateWidget(
                 icon: LineIcons.comments,
