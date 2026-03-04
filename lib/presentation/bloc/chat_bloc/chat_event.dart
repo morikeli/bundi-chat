@@ -11,4 +11,8 @@ final class SendMessageRequested extends ChatEvent {
 
 final class InboxMessagesRequested extends ChatEvent {}
 
-final class ChatsRequested extends ChatEvent {}
+final class ChatsRequested extends ChatEvent {
+  final String receiverId;
+
+  ChatsRequested(this.receiverId);
+}
