@@ -49,6 +49,19 @@ class ChatMessage {
   }
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) {
+    DateTime timestamp;
+    final createdAt = json['created_at'];
+
+    if (createdAt is String) {
+      // ISO8601 string format
+      timestamp = DateTime.parse(createdAt);
+    } else if (createdAt is int) {
+      // Milliseconds since epoch
+      timestamp = DateTime.fromMillisecondsSinceEpoch(createdAt);
+    } else {
+      timestamp = DateTime.now();
+    }
+
     return ChatMessage(
       id: json['id'],
       text: json['text'],
