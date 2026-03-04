@@ -59,22 +59,22 @@ class FindFriendsService {
 
   Future<List<UserModel>> getFollowedUsers(String currentUserId) async {
     try {
-      final List<Map<String, dynamic>> response = await _supabase
+      final response = await _supabase
           .from('friends')
-          .select()
+          .select('''
+            users!friends_following_id_fkey (
+              id,
+              username,
+              first_name,
+              last_name,
+              mobile_number,
+              avatar_url,
+              created_at
+            )
+          ''')
           .eq('follower_id', currentUserId);
-
-      // Map Supabase rows to Friends objects
-      return response
-          .map(
-            (json) => Friends(
-              id: json['id'] as String,
-              followerId: json['follower_id'] as String,
-              followingId: json['following_id'] as String,
-              createdAt: DateTime.parse(json['created_at'] as String),
-            ),
-          )
-          .toList();
+      
+      return response.map((e) => UserModel.fromJson(e['users'])).toList();
     } catch (e) {
       throw Exception('Error fetching followed users: $e');
     }
