@@ -21,6 +21,12 @@ final class ChatsLoaded extends ChatState {
   ChatsLoaded(this.chats);
 }
 
+final class ChatsLoading extends ChatState {
+  final List<ChatMessage> previousChats;
+
+  ChatsLoading(this.previousChats);
+}
+
 final class ChatError extends ChatState {
   final String errorMessage;
 
