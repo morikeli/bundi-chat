@@ -1,32 +1,29 @@
 import 'chat.dart';
+import 'user.dart';
 
 class ChatThread {
   final String receiverId;
-  final String userName;
-  final String avatar;
-  final ChatMessage lastMessage;
+  final UserModel user;
+  final ChatMessage recentMessage;
   final int unreadCount;
 
   const ChatThread({
     required this.receiverId,
-    required this.userName,
-    required this.avatar,
-    required this.lastMessage,
+    required this.user,
+    required this.recentMessage,
     required this.unreadCount,
   });
 
   ChatThread copyWith({
     String? receiverId,
-    String? userName,
-    String? avatar,
-    ChatMessage? lastMessage,
+    UserModel? user,
+    ChatMessage? recentMessage,
     int? unreadCount,
   }) {
     return ChatThread(
       receiverId: receiverId ?? this.receiverId,
-      userName: userName ?? this.userName,
-      avatar: avatar ?? this.avatar,
-      lastMessage: lastMessage ?? this.lastMessage,
+      user: user ?? this.user,
+      recentMessage: recentMessage ?? this.recentMessage,
       unreadCount: unreadCount ?? this.unreadCount,
     );
   }
@@ -36,25 +33,24 @@ class ChatThread {
   Map<String, dynamic> toJson() {
     return {
       'receiverId': receiverId,
-      'userName': userName,
-      'avatar': avatar,
-      // 'messages': messages.map((x) => x.toJson()).toList(),
+      'user': user.toJson(),
+      'recentMessage': recentMessage.toJson(),
+      'unreadCount': unreadCount,
     };
   }
 
   factory ChatThread.fromJson(Map<String, dynamic> json) {
     return ChatThread(
       receiverId: json['receiverId'],
-      userName: json['userName'],
-      avatar: json['avatar'],
-      lastMessage: ChatMessage.fromJson(json['lastMessage']),
+      user: UserModel.fromJson(json['user']),
+      recentMessage: ChatMessage.fromJson(json['recentMessage']),
       unreadCount: json['unreadCount'],
     );
   }
 
   @override
   String toString() {
-    return '''ChatThread(receiverId: $receiverId, userName: $userName, avatar: $avatar, lastMessage: $lastMessage, unreadCount: $unreadCount)''';
+    return '''ChatThread(receiverId: $receiverId, user: $user, recentMessage: $recentMessage, unreadCount: $unreadCount)''';
   }
 
   @override
@@ -63,18 +59,16 @@ class ChatThread {
 
     return other is ChatThread &&
         other.receiverId == receiverId &&
-        other.userName == userName &&
-        other.avatar == avatar &&
-        other.lastMessage == lastMessage &&
+        other.user == user &&
+        other.recentMessage == recentMessage &&
         other.unreadCount == unreadCount;
   }
 
   @override
   int get hashCode {
     return receiverId.hashCode ^
-        userName.hashCode ^
-        avatar.hashCode ^
-        lastMessage.hashCode ^
+        user.hashCode ^
+        recentMessage.hashCode ^
         unreadCount.hashCode;
   }
 }
