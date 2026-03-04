@@ -63,12 +63,12 @@ class ChatMessage {
     }
 
     return ChatMessage(
-      id: json['id'],
-      text: json['text'],
-      senderId: json['senderId'],
-      receiverId: json['receiverId'],
-      timestamp: DateTime.fromMillisecondsSinceEpoch(json['timestamp']),
-      isRead: json['isRead'],
+      id: json['id']?.toString() ?? '',
+      text: json['content']?.toString() ?? '',
+      senderId: json['sender_id']?.toString() ?? '',
+      receiverId: json['receiver_id']?.toString() ?? '',
+      timestamp: timestamp,
+      isRead: json['is_read'] ?? false,
     );
   }
 
