@@ -1,6 +1,6 @@
 class UserModel {
   final String id;
-  final String? firstName, lastName, email, mobileNumber;
+  final String? firstName, lastName, email, mobileNumber, avatarUrl;
   final String username;
   final DateTime createdAt;
 
@@ -12,6 +12,7 @@ class UserModel {
     this.lastName,
     this.email,
     this.mobileNumber,
+    this.avatarUrl,
   });
 
   UserModel copyWith({
@@ -43,6 +44,7 @@ class UserModel {
       'username': username,
       'email': email,
       'mobile_number': mobileNumber,
+      'avatar_url': avatarUrl,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
   }
@@ -61,6 +63,7 @@ class UserModel {
       email: json['email'] as String? ?? metadata['email'],
       mobileNumber:
           json['mobile_number'] as String? ?? metadata['mobile_number'],
+      avatarUrl: json['avatar_url'] as String? ?? metadata['avatar_url'],
 
       // 3. Parse the ISO8601 String (2026-02-26T10:01:08...)
       // instead of expecting Milliseconds
@@ -72,7 +75,7 @@ class UserModel {
 
   @override
   String toString() =>
-      '''UserModel(id: $id, username: $username, email: $email, mobileNumber: $mobileNumber, createdAt: $createdAt)''';
+      '''UserModel(id: $id, username: $username, email: $email, mobileNumber: $mobileNumber, avatarUrl: $avatarUrl, createdAt: $createdAt)''';
 
   @override
   bool operator ==(Object other) {
