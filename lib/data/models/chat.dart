@@ -81,38 +81,3 @@ class ChatMessage {
     return id.hashCode ^ text.hashCode ^ senderId.hashCode ^ timestamp.hashCode;
   }
 }
-
-// List<ChatMessage> messages = [
-//   ChatMessage(
-//     id: '1',
-//     text: 'Hello, how are you?',
-//     senderId: 'user1',
-//     receiverId: 'user2',
-//     timestamp: DateTime.now().subtract(Duration(minutes: 5)),
-//     isRead: false,
-//   ),
-//   ChatMessage(
-//     id: '2',
-//     text: 'I am good, thanks! How about you?',
-//     senderId: 'user2',
-//     receiverId: 'user1',
-//     timestamp: DateTime.now().subtract(Duration(minutes: 4)),
-//     isRead: true,
-//   ),
-//   ChatMessage(
-//     id: '3',
-//     text: 'I am doing well too. What are you up to?',
-//     senderId: 'user1',
-//     receiverId: 'user2',
-//     timestamp: DateTime.now().subtract(Duration(minutes: 3)),
-//     isRead: false,
-//   ),
-//   ChatMessage(
-//     id: '4',
-//     text: 'Just working on a Flutter project.',
-//     senderId: 'user2',
-//     receiverId: 'user1',
-//     timestamp: DateTime.now().subtract(Duration(minutes: 2)),
-//     isRead: false,
-//   ),
-// ];
