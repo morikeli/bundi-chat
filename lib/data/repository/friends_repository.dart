@@ -11,7 +11,7 @@ class FriendsRepository {
     await _friendsService.follow(followedUserId);
   }
 
-  Future<List<Friends>> fetchMyFriends(String currentUserId) async {
+  Future<List<UserModel>> fetchMyFriends(String currentUserId) async {
     return await _friendsService.getFollowedUsers(currentUserId);
   }
 

@@ -50,7 +50,7 @@ class FindFriendsService {
     });
   }
 
-  Future<List<Friends>> getFollowedUsers(String currentUserId) async {
+  Future<List<UserModel>> getFollowedUsers(String currentUserId) async {
     try {
       final List<Map<String, dynamic>> response = await _supabase
           .from('friends')

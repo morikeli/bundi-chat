@@ -16,7 +16,7 @@ final class AllUsersLoaded extends FriendsState {
 }
 
 final class MyFriendsLoaded extends FriendsState {
-  final List<Friends> friends;
+  final List<UserModel> friends;
 
   MyFriendsLoaded(this.friends);
 }
