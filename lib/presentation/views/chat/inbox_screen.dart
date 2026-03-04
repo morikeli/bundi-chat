@@ -21,7 +21,22 @@ class _InboxScreenState extends State<InboxScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     context.read<ChatBloc>().add(InboxMessagesRequested());
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // Refresh inbox messages when the app is resumed
+      context.read<ChatBloc>().add(InboxMessagesRequested());
+    }
   }
 
   @override
