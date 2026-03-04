@@ -68,42 +68,73 @@ class ChatService {
   Stream<List<ChatThread>> streamThreads() {
   final myId = Supabase.instance.client.auth.currentUser!.id;
 
-  return Supabase.instance.client
-      .from('chats')
-      .stream(primaryKey: ['id'])
-      .order('created_at', ascending: false)
-      .map((rows) {
-        final Map<String, List<Map<String, dynamic>>> grouped = {};
+    return Supabase.instance.client
+        .from('messages')
+        .stream(primaryKey: ['id'])
+        .order('created_at', ascending: false)
+        .asyncMap((rows) async {
+          // Group messages by conversation (identify the other user)
+          final Map<String, List<Map<String, dynamic>>> grouped = {};
 
-        for (final row in rows) {
-          final other = row['profile_id'] == myId
-              ? row['receiver_id']
-              : row['sender_id'];
+          for (final row in rows) {
+            // Determine who the other user is in this conversation
+            final otherUserId = row['sender_id'] == myId
+                ? row['receiver_id']
+                : row['sender_id'];
 
-          grouped.putIfAbsent(other, () => []).add(row);
-        }
+            grouped.putIfAbsent(otherUserId, () => []).add(row);
+          }
 
-        return grouped.entries.map((e) {
-          final msgs = e.value;
+          // Create ChatThread for each conversation (fetch user data async)
+          final threads = await Future.wait(
+            grouped.entries.map((e) async {
+              final msgs = e.value; // All messages in this conversation
+              final otherUserId = e.key; // The other user's ID
 
-          final last = ChatMessage.fromJson(msgs.first);
+              // Get the most recent message
+              final lastMsg = msgs.first;
+              final lastMessage = ChatMessage.fromJson(lastMsg);
 
-          final unread = msgs
-              .where((m) =>
-                  m['receiver_id'] == myId &&
-                  m['is_read'] == false)
-              .length;
+              // Count unread messages (messages sent to me that I haven't read)
+              final unreadCount = msgs
+                  .where(
+                    (m) => m['receiver_id'] == myId && m['is_read'] == false,
+                  )
+                  .length;
 
-          return ChatThread(
-            receiverId: e.key,
-            userName: 'User', // load from profiles table
-            avatar: '',
-            lastMessage: last,
-            unreadCount: unread,
+              // Fetch user data from the users table
+              final userRes = await supabase
+                  .from('users')
+                  .select()
+                  .eq('id', otherUserId)
+                  .maybeSingle();
+
+              // Create UserModel from the fetched data
+              UserModel user = UserModel(
+                id: otherUserId,
+                username: userRes?['username'] ?? 'Unknown',
+                createdAt: userRes?['created_at'] != null
+                    ? DateTime.parse(userRes!['created_at'])
+                    : DateTime.now(),
+                firstName: userRes?['first_name'],
+                lastName: userRes?['last_name'],
+                email: userRes?['email'],
+                mobileNumber: userRes?['mobile_number'],
+                avatarUrl: userRes?['avatar_url'],
+              );
+
+              return ChatThread(
+                receiverId: otherUserId,
+                user: user,
+                recentMessage: lastMessage,
+                unreadCount: unreadCount,
+              );
+            }),
           );
-        }).toList();
-      });
-}
+
+          return threads;
+        });
+  }
 
   Stream<List<ChatMessage>> streamMessages(String otherUserId) {
     final myId = supabase.auth.currentUser!.id;
