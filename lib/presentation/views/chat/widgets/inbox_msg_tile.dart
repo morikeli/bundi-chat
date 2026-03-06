@@ -19,9 +19,17 @@ class InboxMessageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () =>
-          Navigator.pushNamed(context, ChatScreen.routeName, arguments: thread),
-      leading: CircleAvatar(backgroundImage: AssetImage(thread.avatar)),
+      onTap: () => Navigator.pushNamed(
+        context,
+        ChatScreen.routeName,
+        arguments: ChatScreenArgs(thread: thread),
+      ),
+      leading: CircleAvatar(
+        backgroundImage:
+            thread.user.avatarUrl != null && thread.user.avatarUrl!.isNotEmpty
+            ? NetworkImage(thread.user.avatarUrl!)
+            : AssetImage('assets/imgs/dps/default.png'),
+      ),
       title: Text(
         thread.userName,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
