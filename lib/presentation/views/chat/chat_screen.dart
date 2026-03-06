@@ -160,7 +160,16 @@ class MessageInputField extends StatelessWidget {
           CircleAvatar(
             backgroundColor: Theme.of(context).primaryColor,
             child: IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                if (txtController.text.trim().isEmpty) return;
+
+                // await repo.sendMessage(receiverId, txtController.text.trim());
+                final content = txtController.text.trim();
+                context.read<ChatBloc>().add(
+                  SendMessageRequested(content, receiverId),
+                );
+                txtController.clear();
+              },
               icon: Icon(CupertinoIcons.paperplane_fill),
               color: Colors.white,
             ),
