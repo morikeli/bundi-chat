@@ -141,6 +141,7 @@ class MessageInputField extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              controller: txtController,
               decoration: InputDecoration(
                 hintText: 'Message ...',
                 border: OutlineInputBorder(
