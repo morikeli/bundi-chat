@@ -65,14 +65,9 @@ class _ChatScreenState extends State<ChatScreen> {
 }
 
 class ChatScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const ChatScreenAppBar({
-    super.key,
-    required this.userName,
-    required this.userProfilePic,
-  });
+  const ChatScreenAppBar({super.key, required this.user});
 
-  final String userName;
-  final String userProfilePic;
+  final UserModel user;
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
