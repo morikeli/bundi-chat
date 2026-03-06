@@ -28,10 +28,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final thread = ModalRoute.of(context)!.settings.arguments as ChatThread;
     return Scaffold(
-      appBar: ChatScreenAppBar(
-        userName: thread.userName,
-        userProfilePic: thread.avatar,
-      ),
+      appBar: ChatScreenAppBar(user: thread.user),
       body: BlocConsumer<ChatBloc, ChatState>(
         listener: (context, state) {
           if (state is ChatError) {
