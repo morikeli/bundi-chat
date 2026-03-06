@@ -6,12 +6,12 @@ class FindFriendsService {
   final SupabaseClient _supabase = Supabase.instance.client;
 
   Future<List<UserModel>> getUsers({
-  required String currentUserId,
-  required int page,  // page number starting from 1
-  required int pageSize,  // number of users per page
-}) async {
-  final from = (page - 1) * pageSize;
-  final to = from + pageSize - 1;
+    required String currentUserId,
+    required int page, // page number starting from 1
+    required int pageSize, // number of users per page
+  }) async {
+    final from = (page - 1) * pageSize;
+    final to = from + pageSize - 1;
 
     try {
       // 1. Get IDs of users I already follow
