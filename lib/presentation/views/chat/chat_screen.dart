@@ -33,7 +33,15 @@ class _ChatScreenState extends State<ChatScreen> {
         userProfilePic: thread.avatar,
       ),
       body: BlocConsumer<ChatBloc, ChatState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is ChatError) {
+            AppToast.showError(
+              context,
+              title: "Chats not loaded!",
+              message: state.errorMessage,
+            );
+          }
+        },
         builder: (context, state) {
           if (state is ChatsLoaded) {
             final chatMessages = state.chats;
