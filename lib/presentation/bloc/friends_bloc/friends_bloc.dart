@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/models/friends.dart';
 import '../../../data/models/user.dart';
 import '../../../data/repository/friends_repository.dart';
 

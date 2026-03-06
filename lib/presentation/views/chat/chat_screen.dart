@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:line_icons/line_icons.dart';
 
+import '../../../core/helpers/chat_screen_args.dart';
+import '../../../core/utils/app_toast.dart';
 import '../../../data/models/chat.dart';
 import '../../../data/models/threads.dart';
+import '../../../data/models/user.dart';
 import '../../bloc/chat_bloc/chat_bloc.dart';
+import '../../widgets/common/empty_state_widget.dart';
 import 'widgets/chat_bubble.dart';
 
 class ChatScreen extends StatefulWidget {

@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/chat.dart';
 import '../models/threads.dart';
+import '../models/user.dart';
 
 class ChatService {
   final supabase = Supabase.instance.client;
@@ -69,7 +70,7 @@ class ChatService {
   }
 
   Stream<List<ChatThread>> streamThreads() {
-  final myId = Supabase.instance.client.auth.currentUser!.id;
+    final myId = Supabase.instance.client.auth.currentUser!.id;
 
     return Supabase.instance.client
         .from('messages')

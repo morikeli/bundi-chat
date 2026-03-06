@@ -1,4 +1,3 @@
-import '../models/friends.dart';
 import '../models/user.dart';
 import '../services/friends_service.dart';
 
