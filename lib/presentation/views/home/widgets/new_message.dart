@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../../../core/theme/color.dart';
+import '../../chat/start_new_chat_screen.dart';
 
 class NewMessageFAB extends StatelessWidget {
   const NewMessageFAB({super.key});
@@ -13,7 +14,7 @@ class NewMessageFAB extends StatelessWidget {
         bottom: MediaQuery.of(context).size.height * .08,
       ),
       child: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.pushNamed(context, StartNewChatScreen.routeName),
         tooltip: 'New Message',
         child: Icon(LineIcons.penNib, color: kIconLightColor),
       ),
