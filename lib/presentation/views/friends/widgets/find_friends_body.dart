@@ -61,9 +61,7 @@ class _FindFriendsScreenBodyState extends State<FindFriendsScreenBody> {
       },
       builder: (context, state) {
         if (state is AllUsersLoaded) {
-          final friends = state.friends;
-
-          if (friends.isEmpty) {
+          if (_cachedFriends.isEmpty) {
             return EmptyStateWidget(
               icon: LineIcons.userSlash,
               title: "No user found!",
