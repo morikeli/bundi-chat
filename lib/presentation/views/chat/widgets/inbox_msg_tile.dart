@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 
+import '../../../../core/helpers/chat_screen_args.dart';
 import '../../../../core/theme/color.dart';
 import '../../../../data/models/threads.dart';
 import '../chat_screen.dart';
