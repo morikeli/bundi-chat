@@ -17,7 +17,7 @@ class InboxScreen extends StatefulWidget {
   State<InboxScreen> createState() => _InboxScreenState();
 }
 
-class _InboxScreenState extends State<InboxScreen> {
+class _InboxScreenState extends State<InboxScreen> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
