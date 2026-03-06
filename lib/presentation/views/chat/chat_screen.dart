@@ -128,7 +128,10 @@ class ChatsListView extends StatelessWidget {
 }
 
 class MessageInputField extends StatelessWidget {
-  const MessageInputField({super.key});
+  MessageInputField({super.key, required this.receiverId});
+
+  final String receiverId;
+  final TextEditingController txtController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
