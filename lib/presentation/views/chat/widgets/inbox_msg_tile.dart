@@ -31,7 +31,7 @@ class InboxMessageTile extends StatelessWidget {
             : AssetImage('assets/imgs/dps/default.png'),
       ),
       title: Text(
-        thread.userName,
+        thread.user.username,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
           fontSize: 18.0,
           fontWeight: FontWeight.bold,
@@ -50,7 +50,7 @@ class InboxMessageTile extends StatelessWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width * .52,
               child: Text(
-                thread.lastMessage.text,
+                thread.recentMessage.text,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: kTextSecondaryColor,

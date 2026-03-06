@@ -78,7 +78,7 @@ class _InboxScreenState extends State<InboxScreen> {
               itemBuilder: (context, index) {
                 final thread = threads[index];
                 return InboxMessageTile(
-                  isRead: thread.lastMessage.isRead,
+                  isRead: thread.recentMessage.isRead,
                   thread: thread,
                 );
               },
