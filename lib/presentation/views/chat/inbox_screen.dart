@@ -49,7 +49,7 @@ class _InboxScreenState extends State<InboxScreen> with WidgetsBindingObserver {
           if (state is ChatError) {
             AppToast.showError(
               context,
-              title: 'Error!',
+              title: 'An error occurred!',
               message: state.errorMessage,
             );
           }
